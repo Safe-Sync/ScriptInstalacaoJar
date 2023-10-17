@@ -34,4 +34,5 @@ if [ \"$appDataSync\" == \"Y\" ]
         echo "Você já pode utilizar nossa aplicação!"
     else
         echo "Você optou por seguir sem a instalação do app, até a próxima!"
+		
     fi
