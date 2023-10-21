@@ -1,38 +1,74 @@
 #!/bin/bash
 
-echo "Olá! Irei te ajudar a instalar o DataSync para você!"
 
-echo "Posso instalar o app do DataSync? (Y/n)"
-read appDataSync
+echo "$(tput setaf 5)[Instalador DataSync]: $(tput sgr0)$(tput setaf 10)Olá, te ajudarei a instalar nossa aplicação!"
+sleep 2
 
-if [ \"$appDataSync\" == \"Y\" ]
+echo "$(tput setaf 5)[Instalador DataSync]: $(tput sgr0)$(tput setaf 10)Primeiro irei atualizar os pacotes do seu sistema."
+sleep 2
+
+sudo apt upgrade && sudo apt update -y
+
+echo "$(tput setaf 5)[Instalador DataSync]: $(tput sgr0) $(tput setaf 10)Para utilizar nossa aplicação é necessário ter o Java instalado"
+sleep 2
+
+echo "$(tput setaf 5)[Instalador DataSync]: $(tput sgr0) $(tput setaf 10)Irei verificar se você já tem o Java."
+sleep 2
+
+java -version
+if [ $? -eq 0 ]
+then
+    echo "$(tput setaf 5)[Instalador DataSync]: $(tput sgr0)$(tput sgr0)$(tput setaf 10)Você já tem o Java instalado!"
+
+    sleep 2
+
+    echo "$(tput setaf 5)[Instalador DataSync]: $(tput sgr0)$(tput setaf 10)Então iremos prosseguir com a instalação da DataSync..."
+    sleep 2 
+
+    echo "$(tput setaf 5)[Instalador DataSync]: $(tput sgr0)$(tput setaf 10)Posso instalar a DataSync pra você? (Y/n)"
+    read installDataSync
+    if [ "$installDataSync" == "Y" ]
     then
-        echo "Para instalar o DataSync, você precisa ter o Java instalado." 
-        echo "Irei verificar se você já tem o Java."
-        java -version
-        if [ $? = 0 ]
-            then
-                echo "Você já tem o Java instalado!"
-            else
-                echo "Não encontrei nenhuma versão do Java instalado."
-                echo "Deseja instalar o Java? (Y/n)"
-                read inst
+        echo "$(tput setaf 5)[Instalador DataSync]: $(tput sgr0)$(tput setaf 10)Irei iniciar a instalação..."
+        sleep 2
 
-                if [ \"$inst\" == \"Y\" ]
-                    then 
-                        echo "Irei instalar o Java para você."
-                        sudo apt install openjdk-17-jre -y
-                        sudo apt update && sudo apt upgrade -y
-                    else
-                        echo "Não podemos prosseguir sem o Java, desculpe!"
-                        exit 0
-                    fi
-            fi
-        git clone https://github.com/Safe-Sync/DataSync.git
-        chmod 777 DataSync.jar
-        echo "Obrigado por instalar o nosso app!"
-        echo "Você já pode utilizar nossa aplicação!"
+        if [ -d "DataSync" ]
+        then
+            echo "$(tput setaf 5)[Instalador DataSync]: $(tput sgr0)$(tput setaf 10)A pasta 'DataSync' já existe. Atualizando..."
+            cd DataSync
+            git pull
+            cd ..
+        else
+            git clone https://github.com/Safe-Sync/DataSync.git
+        fi
+
+        cd DataSync/target
+
+        chmod 777 DataSync-1.0-jar-with-dependencies.jar
+        sleep 2
+
+        echo "$(tput setaf 5)[Instalador DataSync]: $(tput sgr0)$(tput setaf 10)Obrigado por instalar a nossa aplicação!"
+        sleep 2
+
+        echo "$(tput setaf 5)[Instalador DataSync]: $(tput sgr0)$(tput setaf 10)Você quer executar a aplicação agora? (Y/n)"
+        read execDataSync
+        if [ "$execDataSync" == "Y" ]
+        then
+            echo "$(tput setaf 5)[Instalador DataSync]: $(tput sgr0)$(tput setaf 10)Iniciando a aplicação... Até logo!"
+            sleep 2
+            java -jar DataSync-1.0-jar-with-dependencies.jar
+        else
+            echo "$(tput setaf 5)[Instalador DataSync]: $(tput sgr0)$(tput setaf 10)Você pode iniciar a aplicação quando desejar! Até logo!"
+            sleep 2
+            exit 0
+        fi
     else
-        echo "Você optou por seguir sem a instalação do app, até a próxima!"
-		
+        echo "$(tput setaf 5)[Instalador DataSync]: $(tput sgr0)$(tput setaf 10)Tudo bem, você pode tentar instalar quando quiser. Até logo!"
+        sleep 2
+        exit 0
     fi
+else
+    echo "$(tput setaf 5)[Instalador DataSync]: $(tput sgr0)$(tput setaf 10)Você pode voltar aqui quando quiser instalar. Até logo!"
+    sleep 2
+    exit 0
+fi
