@@ -6,6 +6,9 @@ sleep 2
 echo "$(tput setaf 5)[Instalador DataSync]: $(tput sgr0)$(tput setaf 10)Primeiro irei atualizar os pacotes do seu sistema."
 sleep 2
 
+echo "$(tput setaf 5)[Instalador DataSync]: $(tput sgr0)$(tput setaf 10)Se o sistema operacional que você está utilizando for linux, será necessário informar sua senha SUDO agora."
+sleep 2
+
 sudo apt upgrade && sudo apt update -y
 
 echo "$(tput setaf 5)[Instalador DataSync]: $(tput sgr0) $(tput setaf 10)Para utilizar nossa aplicação é necessário ter o Java instalado"
