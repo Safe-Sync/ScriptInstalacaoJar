@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # URL do arquivo JAR no GitHub
-jar_url="https://https://github.com/Safe-Sync/DataSync-3.0/tree/main/datasync/target/datasync-1.0-jar-with-dependencies.jar"
+jar_url="https://github.com/Safe-Sync/DataSync-3.0/raw/main/datasync/target/datasync-1.0-jar-with-dependencies.jar"
 
 # Nome do arquivo JAR após o download
 jar_nome="datasync-1.0-jar-with-dependencies.jar"
